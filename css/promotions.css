@@ -1,0 +1,577 @@
+.promotion-header {
+    position: relative;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.page-header a {
+    position: absolute;
+    left: 100px;
+    top: 120px;
+    padding: 16px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--primary-green);
+    color: var(--white);
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+    text-decoration: none;
+}
+
+/* Add this to your promotions.css file */
+.alert {
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-in-out;
+    border-right: 5px solid;
+}
+
+.alert-success {
+    background-color: #f0fff4;
+    border-color: #38a169;
+    color: #2f855a;
+}
+
+.alert-error {
+    background-color: #fff5f5;
+    border-color: #e53e3e;
+    color: #c53030;
+}
+
+.alert i {
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.alert .close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    font-size: 18px;
+    padding: 0;
+    margin-right: 10px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* For the empty state message */
+.text-center {
+    text-align: center;
+    padding: 20px;
+    color: #718096;
+    font-size: 16px;
+}
+
+.page-header a:hover {
+    background-color: var(--dark-green);
+}
+
+.promotion-info {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.info-box {
+    background: var(--light-green);
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.promotion-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.professor-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s;
+}
+
+.professor-card.eligible {
+    border-left: 5px solid var(--primary-green);
+}
+
+.prof-header {
+    border-bottom: 2px solid var(--light-gray);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.department {
+    color: var(--secondary-red);
+    font-size: 0.9rem;
+}
+
+.progress-bar {
+    background: var(--light-gray);
+    height: 25px;
+    border-radius: 15px;
+    margin: 1rem 0;
+    position: relative;
+}
+
+.progress {
+    background: linear-gradient(90deg, var(--primary-green), var(--dark-green));
+    height: 100%;
+    border-radius: 15px;
+    transition: width 0.5s ease;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white);
+    font-weight: 500;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.btn-promote {
+    background: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-promote:disabled {
+    background: var(--medium-gray);
+    cursor: not-allowed;
+}
+
+.btn-history {
+    background: var(--secondary-red);
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* Promotion Page Styles */
+.promotion-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--medium-gray);
+    padding-bottom: 0.5rem;
+}
+
+.tab-btn {
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.tab-btn:hover {
+    background-color: var(--medium-gray);
+}
+
+.tab-btn.active {
+    background-color: var(--primary-green);
+    color: var(--white);
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.promotion-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.promotion-table th {
+    background-color: var(--primary-green);
+    color: var(--white);
+    padding: 1rem;
+    text-align: right;
+}
+
+.promotion-table td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.promotion-table tr:last-child td {
+    border-bottom: none;
+}
+
+.promotion-table tr:hover {
+    background-color: var(--light-green);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-badge.eligible {
+    background-color: rgba(10, 110, 49, 0.1);
+    color: var(--primary-green);
+}
+
+.status-badge.not-eligible {
+    background-color: rgba(230, 58, 58, 0.1);
+    color: var(--secondary-red);
+}
+
+.btn-promote {
+    background-color: var(--primary-green);
+    color: var(--white);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.btn-promote:hover {
+    background-color: var(--dark-green);
+    color: var(--white);
+}
+
+.btn-disabled {
+    background-color: var(--medium-gray);
+    color: var(--dark-gray);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.9rem;
+    cursor: not-allowed;
+}
+
+.promotion-stats {
+    background: linear-gradient(45deg, var(--primary-green), var(--dark-green));
+    color: white;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.promotion-stats p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+/* Ajouter ces styles supplémentaires */
+.status-badge.eligible {
+    background-color: rgba(10, 110, 49, 0.1);
+    color: var(--primary-green);
+    border: 1px solid var(--primary-green);
+}
+
+.status-badge.not-eligible {
+    background-color: rgba(230, 58, 58, 0.1);
+    color: var(--secondary-red);
+    border: 1px solid var(--secondary-red);
+}
+
+.promotion-table th, .promotion-table td {
+    text-align: center;
+    padding: 0.8rem;
+}
+
+.promotion-table td:first-child, 
+.promotion-table th:first-child {
+    text-align: right;
+}
+
+.promotion-table td:last-child, 
+.promotion-table th:last-child {
+    text-align: left;
+}
+
+/* Year selector styles */
+.year-selector-form {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.year-selector-form select {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    background-color: white;
+    font-size: 14px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+    max-width: 600px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.close-modal {
+    color: #aaa;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: black;
+}
+
+.modal-header {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-actions {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.condition-group {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #eee;
+    position: relative;
+}
+
+.remove-condition {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-conditions {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-conditions:hover {
+    background-color: #45a049;
+}
+
+.btn-add-condition {
+    background-color: #2196F3;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-add-condition:hover {
+    background-color: #0b7dda;
+}
+
+.btn-apply {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-apply:hover {
+    background-color: #45a049;
+}
+
+.btn-cancel {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.btn-cancel:hover {
+    background-color: #d32f2f;
+}
+
+/* Add CSS for the file upload section */
+.file-upload-section {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.file-list {
+    margin-bottom: 15px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+}
+
+.file-name {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.file-size {
+    color: #777;
+    font-size: 0.9em;
+    margin: 0 15px;
+}
+
+.remove-file {
+    background-color: #fff;
+    color: #dc3545;
+    border: none;
+    border-radius: 4px;
+    padding: 3px 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.remove-file:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+.file-upload-container {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.file-upload-container input[type="file"] {
+    display: none;
+}
+
+.file-upload-label {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.file-upload-label:hover {
+    background-color: #45a049;
+}
+
+.file-requirements {
+    background-color: #fff;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border-right: 3px solid #4CAF50;
+}
+
+.file-requirements ul {
+    padding-right: 20px;
+    margin-top: 5px;
+}
+
+.file-requirements li {
+    margin-bottom: 5px;
+}

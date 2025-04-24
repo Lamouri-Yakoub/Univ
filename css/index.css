@@ -1,0 +1,357 @@
+/* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+:root {
+    --primary-green: #0a6e31;
+    --secondary-red: #e63a3a;
+    --light-green: #e8f5e9;
+    --dark-green: #054d21;
+    --light-gray: #f5f5f5;
+    --medium-gray: #e0e0e0;
+    --dark-gray: #333333;
+    --white: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header and Navigation Styles */
+.main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--white);
+    padding: 0.5rem 1.5rem;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.logo-container img {
+    width: 200px;
+    height: auto;
+}
+
+.university-name {
+    display: flex;
+    flex-direction: column;
+}
+
+.name-ar {
+    color: var(--primary-green);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.name-fr {
+    color: var(--secondary-red);
+    font-size: 0.7rem;
+}
+
+.mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--primary-green);
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.main-nav {
+    flex: 1;
+    margin: 0 2rem;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.7rem 1rem;
+    color: var(--dark-gray);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    gap: 0.5rem;
+}
+
+.nav-link:hover {
+    background-color: var(--light-green);
+    color: var(--primary-green);
+}
+
+.nav-link.active {
+    background-color: var(--primary-green);
+    color: var(--white);
+}
+
+.nav-link.active:hover {
+    background-color: var(--dark-green);
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-info {
+    display: none;
+    text-align: left;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary-green);
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.dropdown-toggle:hover {
+    background-color: var(--light-green);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 180px;
+    background-color: var(--white);
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 10;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 0.7rem 1rem;
+    color: var(--dark-gray);
+    text-decoration: none;
+    transition: background-color 0.2s;
+    gap: 0.8rem;
+}
+
+.dropdown-item:hover {
+    background-color: var(--light-gray);
+}
+
+.logout-link {
+    color: var(--secondary-red);
+}
+
+.logout-link:hover {
+    background-color: rgba(230, 58, 58, 0.1);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background-color: var(--medium-gray);
+    margin: 0.3rem 0;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Stats Cards Styles */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background-color: var(--white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--primary-green), var(--secondary-red));
+    border-radius: 0 8px 8px 0;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-title {
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-green);
+}
+
+/* Recent Activity Styles */
+.recent-activity {
+    background-color: var(--white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.recent-activity h2 {
+    margin-bottom: 1.2rem;
+    color: var(--dark-gray);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.recent-activity h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-green), var(--secondary-red));
+    border-radius: 2px;
+}
+
+.activity-list {
+    list-style: none;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-item i {
+    background-color: var(--light-green);
+    color: var(--primary-green);
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-left: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .user-info {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        flex-wrap: wrap;
+        padding: 0.5rem;
+    }
+    
+    .mobile-toggle {
+        display: block;
+    }
+    
+    .main-nav {
+        flex-basis: 100%;
+        margin: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    
+    .main-nav.open {
+        max-height: 300px;
+    }
+    
+    .nav-menu {
+        flex-direction: column;
+        padding: 0.5rem 0;
+    }
+    
+    .nav-link {
+        justify-content: flex-start;
+    }
+    
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+}
+.promotion-stats {
+    background: linear-gradient(45deg, #0a6e31, #054d21);
+    color: white;
+    border-radius: 10px;
+    padding: 1rem;
+}

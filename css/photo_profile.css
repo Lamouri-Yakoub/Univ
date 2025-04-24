@@ -1,0 +1,142 @@
+/* Conteneur principal de la photo */
+.photo-container {
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 30px;
+    position: absolute;
+    border-radius: 30%;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    border: 4px solid #fff;
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
+    left: 100px;
+    top: 220px;
+}
+
+/* Effet de halo moderne */
+.photo-container::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 30%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 60%);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.photo-container:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 
+        0 8px 30px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.photo-container:hover::before {
+    opacity: 1;
+}
+
+/* Style de l'image */
+.professor-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease, filter 0.3s ease;
+    filter: grayscale(10%);
+}
+
+.photo-container:hover .professor-image {
+    transform: scale(1.05);
+    filter: grayscale(0%);
+}
+
+/* Style par défaut quand pas de photo */
+.default-photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #6c757d;
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.default-photo i {
+    font-size: 5.5rem;
+    color: #ced4da;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.default-photo span {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+.photo-container:hover .default-photo i {
+    transform: scale(1.1);
+    color: #adb5bd;
+}
+
+.photo-container:hover::after {
+    opacity: 1;
+    animation: rotateBorder 6s linear infinite;
+}
+
+@keyframes rotateBorder {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .photo-container {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .photo-container {
+        width: 180px;
+        height: 180px;
+        margin-bottom: 25px;
+    }
+    
+    .default-photo i {
+        font-size: 4.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .photo-container {
+        width: 160px;
+        height: 160px;
+        margin-bottom: 20px;
+    }
+    
+    .default-photo i {
+        font-size: 4rem;
+    }
+    
+    .default-photo span {
+        font-size: 0.9rem;
+    }
+}

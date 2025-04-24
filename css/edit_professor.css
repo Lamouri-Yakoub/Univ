@@ -1,0 +1,224 @@
+/* Edit Professor Specific Styles */
+.professor-form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.form-section:last-child {
+    border-bottom: none;
+}
+
+.section-title {
+    color: #0a6e31;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.password-input {
+    position: relative;
+}
+
+.password-input input {
+    padding-right: 40px;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+}
+
+.password-strength {
+    margin-top: 0.5rem;
+}
+
+.strength-bar {
+    display: block;
+    height: 4px;
+    width: 0;
+    background-color: #ddd;
+    margin-bottom: 0.3rem;
+    transition: width 0.3s, background-color 0.3s;
+}
+
+.strength-bar.weak {
+    width: 33%;
+    background-color: #e63a3a;
+}
+
+.strength-bar.medium {
+    width: 66%;
+    background-color: #f39c12;
+}
+
+.strength-bar.strong {
+    width: 100%;
+    background-color: #0a6e31;
+}
+
+.strength-text {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.strength-text.weak {
+    color: #e63a3a;
+}
+
+.strength-text.medium {
+    color: #f39c12;
+}
+
+.strength-text.strong {
+    color: #0a6e31;
+}
+
+.form-hint {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.3rem;
+}
+
+.radio-group {
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem 0;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s;
+}
+
+.btn-save {
+    background-color: #0a6e31;
+    color: white;
+}
+
+.btn-save:hover {
+    background-color: #054d21;
+}
+
+.btn-reset {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.btn-reset:hover {
+    background-color: #e0e0e0;
+}
+
+.alert {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.alert-error {
+    background-color: rgba(230, 58, 58, 0.1);
+    color: #e63a3a;
+    border-right: 3px solid #e63a3a;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    color: #0a6e31;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-back {
+    background-color: #f5f5f5;
+    color: #333;
+    padding: 0.6rem 1rem;
+    border: 1px solid #ddd;
+    text-decoration: none;
+}
+
+.btn-back:hover {
+    background-color: #e0e0e0;
+}
