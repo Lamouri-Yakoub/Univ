@@ -139,14 +139,22 @@ function calculateDurations($primaryDate, $fallbackDate, $year, $requiredDuratio
 
 $categories = [
     'الأساتذة' => getProfessorsByRank($pdo, 'أستاذ'),
-    'المحاضرون' => array_merge(
-        getProfessorsByRank($pdo, 'محاضر قسم أ'),
-        getProfessorsByRank($pdo, 'محاضر قسم ب')
-    ),
-    'المساعدون' => array_merge(
-        getProfessorsByRank($pdo, 'مساعد قسم أ'),
-        getProfessorsByRank($pdo, 'مساعد قسم ب')
-    )
+    'المحاضرون' => getProfessorsByRank($pdo, 'محاضر قسم أ'),
+    'المساعدون' => getProfessorsByRank($pdo, 'مساعد قسم أ'),
+    'محاضر قسم أ' => getProfessorsByRank($pdo, 'محاضر قسم أ'),
+    'محاضر قسم ب' => getProfessorsByRank($pdo, 'محاضر قسم ب'),
+    'مساعد قسم أ' => getProfessorsByRank($pdo, 'مساعد قسم أ'),
+    'مساعد قسم ب' => getProfessorsByRank($pdo, 'مساعد قسم ب')
+];
+
+$lecturersCategory = [
+    'محاضر قسم أ' => getProfessorsByRank($pdo, 'محاضر قسم أ'),
+    'محاضر قسم ب' => getProfessorsByRank($pdo, 'محاضر قسم ب')
+];
+
+$assistantsCategory = [
+    'مساعد قسم أ' => getProfessorsByRank($pdo, 'مساعد قسم أ'),
+    'مساعد قسم ب' => getProfessorsByRank($pdo, 'مساعد قسم ب')
 ];
 
 function calculateDateOfEffectiveness($old_grade, $new_grade, $promotion_effective_date) {
@@ -219,7 +227,7 @@ function calculateDateOfEffectiveness($old_grade, $new_grade, $promotion_effecti
             <?php endif; ?>
 
             <div class="promotion-tabs">
-                <?php foreach ($categories as $categoryName => $professors): ?>
+                <?php foreach (array_slice($categories,0,3) as $categoryName => $professors): ?>
                     <button class="tab-btn" onclick="openTab('<?= str_replace(' ', '-', $categoryName) ?>')">
                         <?= $categoryName ?>
                     </button>
@@ -228,7 +236,27 @@ function calculateDateOfEffectiveness($old_grade, $new_grade, $promotion_effecti
 
             <?php foreach ($categories as $categoryName => $professors): ?>
                 <div id="<?= str_replace(' ', '-', $categoryName) ?>" class="tab-content" style="display: <?= $categoryName === 'الأساتذة' ? 'block' : 'none' ?>;">
-                    <div class="promotion-stats">
+                <?php if($categoryName == 'المحاضرون' || $categoryName == 'محاضر قسم أ'  || $categoryName == 'محاضر قسم ب'): ?>
+                        <div class="promotion-tabs" id="lecturersTabs">
+                            <?php foreach ($lecturersCategory as $lecturerCategoryName => $lecturerProfessors): ?>
+                                <button class="tab-btn" onclick="openTab('<?= str_replace(' ', '-', $lecturerCategoryName) ?>')">
+                                    <?= $lecturerCategoryName ?>
+                                </button>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <?php if($categoryName == 'المساعدون' || $categoryName == 'مساعد قسم أ'  || $categoryName == 'مساعد قسم ب'): ?>
+                        <div class="promotion-tabs" id="assistantsTabs">
+                            <?php foreach ($assistantsCategory as $assistantCategoryName => $assistantProfessors): ?>
+                                <button class="tab-btn" onclick="openTab('<?= str_replace(' ', '-', $assistantCategoryName) ?>')">
+                                    <?= $assistantCategoryName ?>
+                                </button>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>    
+                
+                <div class="promotion-stats">
                         <p>عدد الترقيات في <?= $currentYear ?>: <?= count($promotionHistory) ?></p>
                     </div>
 
@@ -260,8 +288,12 @@ function calculateDateOfEffectiveness($old_grade, $new_grade, $promotion_effecti
                             <?php else: ?>
                                 <?php foreach ($promotionHistory as $index => $promotion): 
                                     if (strpos($categoryName, 'الأساتذة') !== false && $promotion['academic_rank'] !== 'أستاذ') continue;
-                                    if (strpos($categoryName, 'المحاضرون') !== false && !in_array($promotion['academic_rank'], ['محاضر قسم أ', 'محاضر قسم ب'])) continue;
-                                    if (strpos($categoryName, 'المساعدون') !== false && !in_array($promotion['academic_rank'], ['مساعد قسم أ', 'مساعد قسم ب'])) continue;
+                                    if (strpos($categoryName, 'المحاضرون') !== false && $promotion['academic_rank'] !== 'محاضر قسم أ') continue;
+                                    if (strpos($categoryName, 'المساعدون') !== false && $promotion['academic_rank'] !== 'مساعد قسم أ') continue;
+                                    if (strpos($categoryName, 'محاضر قسم أ') !== false && $promotion['academic_rank'] !== 'محاضر قسم أ') continue;
+                                    if (strpos($categoryName, 'محاضر قسم ب') !== false && $promotion['academic_rank'] !== 'محاضر قسم ب') continue;
+                                    if (strpos($categoryName, 'مساعد قسم أ') !== false && $promotion['academic_rank'] !== 'مساعد قسم أ') continue;
+                                    if (strpos($categoryName, 'مساعد قسم ب') !== false && $promotion['academic_rank'] !== 'مساعد قسم ب') continue;
                                 ?>
                                     <tr>
                                     <?php $durations = calculateDurations($promotion['effective_date'], $promotion['hire_date'], $currentYear, $requiredDurations[$promotion['academic_rank']], $promotion['previous_grade'], 1680);?>

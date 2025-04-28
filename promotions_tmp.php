@@ -130,14 +130,22 @@ function calculateDurations($primaryDate, $fallbackDate, $requiredDuration, $gra
 // Get professors by category
 $categories = [
     'الأساتذة' => getProfessorsByRank($pdo, 'أستاذ'),
-    'المحاضرون' => array_merge(
-        getProfessorsByRank($pdo, 'محاضر قسم أ'),
-        getProfessorsByRank($pdo, 'محاضر قسم ب')
-    ),
-    'المساعدون' => array_merge(
-        getProfessorsByRank($pdo, 'مساعد قسم أ'),
-        getProfessorsByRank($pdo, 'مساعد قسم ب')
-    )
+    'المحاضرون' => getProfessorsByRank($pdo, 'محاضر قسم أ'),
+    'المساعدون' => getProfessorsByRank($pdo, 'مساعد قسم أ'),
+    'محاضر قسم أ' => getProfessorsByRank($pdo, 'محاضر قسم أ'),
+    'محاضر قسم ب' => getProfessorsByRank($pdo, 'محاضر قسم ب'),
+    'مساعد قسم أ' => getProfessorsByRank($pdo, 'مساعد قسم أ'),
+    'مساعد قسم ب' => getProfessorsByRank($pdo, 'مساعد قسم ب')
+];
+
+$lecturersCategory = [
+    'محاضر قسم أ' => getProfessorsByRank($pdo, 'محاضر قسم أ'),
+    'محاضر قسم ب' => getProfessorsByRank($pdo, 'محاضر قسم ب')
+];
+
+$assistantsCategory = [
+    'مساعد قسم أ' => getProfessorsByRank($pdo, 'مساعد قسم أ'),
+    'مساعد قسم ب' => getProfessorsByRank($pdo, 'مساعد قسم ب')
 ];
 
 // Define the function to calculate adjustment based on sector origin
@@ -183,20 +191,40 @@ function calculateSectorAdjustment($yearsWorked, $isOutsideSector) {
             <?php endif; ?>
 
             <div class="promotion-tabs">
-                <?php foreach ($categories as $categoryName => $professors): ?>
+                <?php foreach (array_slice($categories, 0, 3) as $categoryName => $professors): ?>
                     <button class="tab-btn" onclick="openTab('<?= str_replace(' ', '-', $categoryName) ?>')">
                         <?= $categoryName ?>
                     </button>
-                <?php endforeach; ?>
-            </div>
-
-            <?php foreach ($categories as $categoryName => $professors): ?>
-                <div id="<?= str_replace(' ', '-', $categoryName) ?>" class="tab-content">
+                    <?php endforeach; ?>
+                </div>
+                
+                
+                
+                <?php foreach ($categories as $categoryName => $professors): ?>
+                    <div id="<?= str_replace(' ', '-', $categoryName) ?>" class="tab-content">
+                    <?php if($categoryName == 'المحاضرون' || $categoryName == 'محاضر قسم أ'  || $categoryName == 'محاضر قسم ب'): ?>
+                        <div class="promotion-tabs" id="lecturersTabs">
+                            <?php foreach ($lecturersCategory as $lecturerCategoryName => $lecturerProfessors): ?>
+                                <button class="tab-btn" onclick="openTab('<?= str_replace(' ', '-', $lecturerCategoryName) ?>')">
+                                    <?= $lecturerCategoryName ?>
+                                </button>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <?php if($categoryName == 'المساعدون' || $categoryName == 'مساعد قسم أ'  || $categoryName == 'مساعد قسم ب'): ?>
+                        <div class="promotion-tabs" id="assistantsTabs">
+                            <?php foreach ($assistantsCategory as $assistantCategoryName => $assistantProfessors): ?>
+                                <button class="tab-btn" onclick="openTab('<?= str_replace(' ', '-', $assistantCategoryName) ?>')">
+                                    <?= $assistantCategoryName ?>
+                                </button>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                <table class="promotion-table">
                     <div class="promotion-stats">
                         <p>عدد الأساتذة: <?= count($professors) ?></p>
                     </div>
-
-                    <table class="promotion-table">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -423,6 +451,7 @@ function calculateSectorAdjustment($yearsWorked, $isOutsideSector) {
         const formData = [];
         let formbool = false;
         function openTab(tabName) {
+            // Hide all tab contents and remove active class from buttons
             const tabContents = document.getElementsByClassName('tab-content');
             for (let i = 0; i < tabContents.length; i++) {
                 tabContents[i].style.display = 'none';
@@ -511,38 +540,53 @@ function sortProfessors() {
     });
 }
 
-// Function to update duration categories based on relative position in sorted list
+// Function to update duration categories based on relative position in sorted list by grade
 function updateDurationCategories(tbody, rows) {
-    // Only apply to rows with mark inputs (مساعد قسم ب, مساعد قسم أ, محاضر قسم ب)
-    const rankedRows = rows.filter(row => row.querySelector('.mark'));
-    if (rankedRows.length === 0) return;
+    // Group rows by grade
+    const rowsByGrade = {};
     
-    const totalRows = rankedRows.length;
-    
-    // Calculate thresholds for the categories
-    const firstThreshold = Math.floor(totalRows * 0.4);    // 40%
-    const secondThreshold = Math.floor(totalRows * 0.8);   // 40% + 40% = 80%
-    
-    // Assign duration categories
-    rankedRows.forEach((row, index) => {
-        const durationCell = row.cells[9]; // Column for duration (المدة)
-        if (index < firstThreshold) {
-            durationCell.textContent = 'دنيا';
-            durationCell.dataset.duration = 'دنيا';
-        } else if (index < secondThreshold) {
-            durationCell.textContent = 'متوسطة';
-            durationCell.dataset.duration = 'متوسطة';
-        } else {
-            durationCell.textContent = 'قصوى';
-            durationCell.dataset.duration = 'قصوى';
+    rows.forEach(row => {
+        const grade = row.cells[2].textContent; // Column for grade (الدرجة الحالية)
+        if (!rowsByGrade[grade]) {
+            rowsByGrade[grade] = [];
         }
-        
-        // Update the hidden input field in the promotion form
-        const durInput = row.querySelector('input[name="dur"]');
-        if (durInput) {
-            durInput.value = durationCell.textContent;
-        }
+        rowsByGrade[grade].push(row);
     });
+    
+    // Process each grade separately
+    for (const grade in rowsByGrade) {
+        const gradeRows = rowsByGrade[grade].filter(row => row.querySelector('.mark'));
+        if (gradeRows.length === 0) continue;
+        
+        const totalRows = gradeRows.length;
+        
+        // Calculate thresholds for the categories - 40%/40%/20% split
+        const firstThreshold = Math.ceil(totalRows * 0.4);    // First 40%
+        const secondThreshold = Math.floor(totalRows * 0.8);   // Next 40% (total 80%)
+        const lastThreshold = totalRows; // Last 20%
+
+
+        // Assign duration categories
+        gradeRows.forEach((row, index) => {
+            const durationCell = row.cells[9]; // Column for duration (المدة)
+            if (index < firstThreshold) {
+                durationCell.textContent = 'دنيا';
+                durationCell.dataset.duration = 'دنيا';
+            } else if (index < secondThreshold) {
+                durationCell.textContent = 'متوسطة';
+                durationCell.dataset.duration = 'متوسطة';
+            } else {
+                durationCell.textContent = 'قصوى';
+                durationCell.dataset.duration = 'قصوى';
+            }
+            
+            // Update the hidden input field in the promotion form
+            const durInput = row.querySelector('input[name="dur"]');
+            if (durInput) {
+                durInput.value = durationCell.textContent;
+            }
+        });
+    }
 }
 
 // Auto-sort when marks change
